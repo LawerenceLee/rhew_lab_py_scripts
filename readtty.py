@@ -8,9 +8,9 @@ usb_type = ''
 
 type_selection = raw_input("Select [A] ttyUSB, [B] ttyS ").upper() 
 if type_selection == 'A':
-	usb_type = 'ttyUSB'
+	usb_type = 'USB'
 elif type_selection == 'B':
-	usb_type = 'ttyS'
+	usb_type = 'S'
 
 usb_port = raw_input("Specify port number: ")
 
