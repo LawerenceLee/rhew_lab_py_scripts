@@ -14,7 +14,9 @@ elif type_selection == 'B':
 
 usb_port = raw_input("Specify port number: ")
 
-add_or_not = raw_input("Would you like add additional arguments or use Valco template? [y/N/V] ").upper()
+command = 'python -m serial.tools.miniterm /dev/tty{}{}'.format(usb_type, usb_port)
+
+add_or_not = raw_input("Would you like add additional arguments or use a template? [y/N/T] ").upper()
 if add_or_not == 'Y':
 	baud_rate = (raw_input('set baud rate (ex. 9600, 115200): '))
 
@@ -74,18 +76,17 @@ if add_or_not == 'Y':
 		dsrdtr += 'True'
 	else:
 		dsrdtr += 'False'
-elif add_or_not == "V":
-	valco = True
+elif add_or_not == "T":
+	template_choice = raw_input('Would you like the [V] Valco, or [O] Omega template? ').upper()
+	if template_choice == 'V':
+		subprocess.call(['python -m serial.tools.miniterm /dev/ttyUSB1', '9600', 'bytesize=EIGHTBITS', 'parity=PARITY_ODD', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
+	elif template_choice == 'O':
+		subprocess.call(['python -m serial.tools.miniterm /dev/ttyUSB0', '9600',  'bytesize=EIGHTBITS', 'parity=PARITY_NONE', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
 else:
 	print('Default settings used: 9600,8,N,1')
-
-
-command = 'python -m serial.tools.miniterm /dev/tty{}{}'.format(usb_type, usb_port)
-
-if add_or_not != 'Y':
 	subprocess.call([command], shell=True)
-elif valco == True:
-	subprocess.call(['python -m serial.tools.miniterm /dev/ttyUSB0', '9600', 'parity=PARITY_NONE', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
-else:
-	subprocess.call([command, baud_rate, parity, stop_bits, xonxoff, rtscts, dsrdtr], shell=True)
+
+
+if add_or_not == 'Y':
+	subprocess.call([command, baud_rate, parity, byte_size, stop_bits, xonxoff, rtscts, dsrdtr], shell=True)
 
