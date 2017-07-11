@@ -103,9 +103,13 @@ def main():
         
         # Choose from either the Vici Valco or Omega templates.
 		template_choice = raw_input('Would you like the [V] Valco, or [O] Omega template? ').upper()
+        
+        # Valco
 		if template_choice == 'V':
 			subprocess.call(['python -m serial.tools.miniterm /dev/ttyUSB1', '9600', 'bytesize=EIGHTBITS', 'parity=PARITY_ODD', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
-		elif template_choice == 'O':
+		
+        # Omega
+        elif template_choice == 'O':
 			subprocess.call(['python -m serial.tools.miniterm /dev/ttyUSB0', '9600',  'bytesize=EIGHTBITS', 'parity=PARITY_NONE', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
 
 	else:
