@@ -25,7 +25,7 @@ def main():
 	usb_port = raw_input("Specify port number: ")
 
     # Main Command (Includes tty type, and port number)
-	command = 'python -m serial.tools.miniterm /dev/tty{}{}'.format(ttyusb_type, usb_port)
+	command = 'python -m serial.tools.miniterm /dev/tty{}{}'.format(tty_type, usb_port)
 
     # Adding additional arguments
 	add_or_not = raw_input("Would you like add additional arguments or use a template? [y/N/T] ").upper()
@@ -106,11 +106,11 @@ def main():
         
         # Valco
 		if template_choice == 'V':
-			subprocess.call(['python -m serial.tools.miniterm /dev/ttyUSB1', '9600', 'bytesize=EIGHTBITS', 'parity=PARITY_ODD', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
+			subprocess.call([command, '9600', 'bytesize=EIGHTBITS', 'parity=PARITY_ODD', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
 		
         # Omega
         elif template_choice == 'O':
-			subprocess.call(['python -m serial.tools.miniterm /dev/ttyUSB0', '9600',  'bytesize=EIGHTBITS', 'parity=PARITY_NONE', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
+			subprocess.call([command, '9600',  'bytesize=EIGHTBITS', 'parity=PARITY_NONE', 'stopbits=STOPBITS_ONE', 'xonxoff=False', 'rtscts=False', 'dsrdtr=False'], shell=True)
 
 	else:
         
@@ -121,5 +121,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-	
-
