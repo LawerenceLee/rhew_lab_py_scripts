@@ -2,22 +2,31 @@
 # -*- coding: utf-8 -*-
 import subprocess 
 
-# To run me from the command line simply type seeserial.
-# If permission is denied simply switch to root
+
+def list_ports():
+    """Uses a python built-in to search for connected USB devices"""
+    command = 'python -m serial.tools.list_ports -v'
+    subprocess.call([command], shell=True)
+
+
+def check_FID_devices():
+    
+    print('\nSYMLINKs Connected:')
+    symlink_list = ['omegaSampleTrap', 'omegaWaterTrap', 'valcoVici6Port', 'redyFlowMeter']
+
+    for link in symlink_list:
+	try:
+	    symlink_command = 'ls -al /dev/{}'.format(link)
+	    subprocess.call([symlink_command], shell=True)
+	except Exception as e:
+	    print(e, '\n')
+    print('\n')
+	
 
 def main():
-	command = 'python -m serial.tools.list_ports -v'
-	subprocess.call([command], shell=True)
-
-	symlink_list = ['omegaSampleTrap', 'omegaWaterTrap', 'valcoVici6Port']
-
-	for link in symlink_list:
-		symlink_command = 'ls -al /dev/{}'.format(link)
-		subprocess.call([symlink_command], shell=True)
-	print('\n')
+    list_ports()
+    check_FID_devices()
 
 
 if __name__ == "__main__":
-	main()
-
-
+    main()
