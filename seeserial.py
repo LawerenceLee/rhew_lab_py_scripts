@@ -4,13 +4,17 @@ import subprocess
 
 
 def list_ports():
-    """Uses a python built-in to search for connected USB devices"""
+    """Uses a python built-in to search for connected USB devices."""
     command = 'python -m serial.tools.list_ports -v'
     subprocess.call([command], shell=True)
 
 
 def check_FID_devices():
-    
+    """Checks to see if a known FID USB device is currently connected. It does this by verifying if
+    said device's SYMLINK (defined in /etc/udev/rules.d/50-usb-serial.rules) is present (active) in 
+    the /dev Directory
+    """
+
     print('\nSYMLINKs Connected:')
     symlink_list = ['omegaSampleTrap', 'omegaWaterTrap', 'valcoVici6Port', 'redyFlowMeter']
 
