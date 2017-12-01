@@ -4,7 +4,7 @@ import subprocess
 
 
 def list_ports():
-    """Uses a python built-in to search for connected USB devices."""
+    """Uses pyserial's list_port command line tool to search for connected USB devices."""
     command = 'python -m serial.tools.list_ports -v'
     subprocess.call([command], shell=True)
 
